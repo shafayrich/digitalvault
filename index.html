@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shafay | Premium Digital Assets</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%233b82f6'>$</text></svg>">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <script src="https://gumroad.com/js/gumroad.js"></script>
     
@@ -27,7 +30,7 @@
         }
 
         html {
-            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+            scroll-behavior: smooth;
         }
 
         body {
@@ -42,10 +45,10 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.5rem 2rem;
-            background: rgba(11, 15, 25, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            padding: 1.2rem 2rem;
+            background: rgba(11, 15, 25, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             z-index: 1000;
             display: flex;
@@ -54,12 +57,35 @@
             transition: all 0.3s ease;
         }
 
-        .brand {
+        .nav-logo {
+            font-size: 1.8rem;
             font-weight: 800;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            color: #fff;
+            color: var(--accent);
+            text-shadow: 0 0 15px var(--accent-glow);
+            user-select: none;
+        }
+
+        .brand-btn {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-main);
             text-decoration: none;
+            padding: 8px 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            background: rgba(255,255,255,0.03);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .brand-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         /* Hero Section */
@@ -133,7 +159,7 @@
             gap: 2.5rem;
         }
 
-        /* Sleek Product Cards with Advanced Hover */
+        /* Sleek Product Cards */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -144,11 +170,10 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            opacity: 0; /* For scroll animation */
-            transform: translateY(30px); /* For scroll animation */
+            opacity: 0; 
+            transform: translateY(30px); 
         }
 
-        /* Visible class added via JS when scrolling into view */
         .card.visible {
             opacity: 1;
             transform: translateY(0);
@@ -289,7 +314,7 @@
             opacity: 0.6;
         }
 
-        /* Keyframes for Hero Animations */
+        /* Animations */
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -303,13 +328,14 @@
 <body>
 
     <nav>
-        <a href="#" class="brand">SHAFAY</a>
+        <div class="nav-logo">$</div>
+        <a href="https://shafayrich.github.io/myprojects/" class="brand-btn" target="_blank" rel="noopener noreferrer">SHAFAY &rarr;</a>
     </nav>
 
     <section class="hero">
         <h1>Accelerate Your Growth</h1>
         <p>Premium digital playbooks, prompt engineering kits, and strategies built for the 2026 creator economy. Download instantly and scale today.</p>
-        <a href="#products" class="scroll-down">View the Vault ↓</a>
+        <a href="#products" class="scroll-down">View the Vault &darr;</a>
     </section>
 
     <div class="container" id="products">
@@ -368,7 +394,7 @@
         <p>&copy; 2026 Shafay Digital Vault. All files are delivered instantly via email.</p>
     </footer>
 
-    <button id="backToTop" title="Go to top">↑</button>
+    <button id="backToTop" title="Go to top">&uarr;</button>
 
     <script>
         // 1. Back to Top Button Logic
@@ -386,18 +412,17 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
-        // 2. Scroll Reveal Animations (Intersection Observer)
+        // 2. Scroll Reveal Animations
         const cards = document.querySelectorAll('.card');
         
         const observerOptions = {
-            threshold: 0.1, // Trigger when 10% of card is visible
+            threshold: 0.1,
             rootMargin: "0px 0px -50px 0px"
         };
 
         const cardObserver = new IntersectionObserver(function(entries, observer) {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
-                    // Add slight delay based on order for a cascading effect
                     setTimeout(() => {
                         entry.target.classList.add('visible');
                     }, index * 100);
